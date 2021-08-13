@@ -1,0 +1,7 @@
+@import './demo.css';
+@import './demo.scss';
+
+p {
+	font-size: 20px;
+  color: #0ff;
+}
