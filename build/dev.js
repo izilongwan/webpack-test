@@ -5,8 +5,9 @@ module.exports = Object.assign({}, base, {
 
   devServer: { // 打包在内存中而不是dist文件夹
     // open: true, // 自动打开网址 localhost:3000
+    // contentBase: '/dist',
     port: 3000,
-    contentBase: '/dist',
+    hot: true,
     compress: true, // gzip压缩
     proxy: {
       '/api/cities': {

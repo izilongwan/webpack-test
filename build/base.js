@@ -10,6 +10,7 @@ module.exports = {
   },
 
   output: { // 输出文件
+    // path: path.resolve(__dirname + '/dist'),
     filename: 'js/[name].js', // js文件文件输出到dist/js/
     clean: true // 输出文件前清理DIST文件夹
   },
@@ -18,7 +19,7 @@ module.exports = {
     // Loader处理不同类型的文件；Plugins扩展功能，提高效率
     rules: [ // 规则
       {
-        test: /\.s?css$/,
+        test: /\.s?css$/, // CSS
         use: [
           // 将 JS 字符串生成为 style 节点
           'style-loader',
@@ -41,15 +42,54 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(jpg|jpeg|gif|webp|png)$/, // 处理图片
+        test: /\.(jpg|jpeg|gif|webp|png|ico)$/, // 处理图片
         use: [
           {
             loader: 'url-loader',
             options: {
               limit: 1024 * 20, // url-loader处理100KB以内，输出BASE64
-              use: 'file-loader', // 大于100KB修改文件名移动文件
-              outputPath: 'images', // 输出路径 file-loader
-              name: '[name]-[contenthash:8].[ext]' // 输出文件名
+              fallback: {
+                loader: 'file-loader', // 大于100KB修改文件名移动文件
+                options: {
+                  name: 'images/[name]-[contenthash:6].[ext]' // 输出文件名
+                }
+              }
+            }
+          }
+        ],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(mp[34]|webm|ogg|wav|flac|aac)(\?.*)?$/, // 处理媒体
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 1024 * 20,
+              fallback: {
+                loader: 'file-loader',
+                options: {
+                  name: 'media/[name]-[contenthash:6].[ext]'
+                }
+              }
+            }
+          }
+        ],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/i, // 处理字体
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 1024 * 20,
+              fallback: {
+                loader: 'file-loader',
+                options: {
+                  name: 'fonts/[name]-[contenthash:6].[ext]'
+                }
+              }
             }
           }
         ],

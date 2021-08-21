@@ -1,14 +1,14 @@
 import '../css/index.css'
 
-console.log('demo');
-
-fetch('/api')
+async function getData(url) {
+  console.log(url)
+  return fetch(url)
   .then(json => json.json())
-  .then(json => console.log(json))
-
-fetch('/api/cities/1')
-  .then(json => json.json())
-  .then(json => console.log(json))
+  .then(json => {
+    console.log(json)
+    return json
+  })
+}
 
 
 class Demo {
@@ -42,3 +42,9 @@ function log (type = '') {
     }
   }
 }
+
+
+;(async () => {
+  await getData('/api/cities/1')
+  await getData('/api')
+})();
