@@ -1,7 +1,4 @@
-console.log('index');
 console.log(0);
-
-console.log( 1);
 
 import pic1 from '../images/1.webp'
 import pic2 from '../images/2.webp'
@@ -17,3 +14,5 @@ function prevImgLoad(url) {
   oImg.src = url;
   oImg.onload = () => $('body').append(oImg);
 }
+
+module?.hot?.accept()
